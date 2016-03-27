@@ -1,0 +1,44 @@
+<html>
+<head>
+  <script>
+    function downloadCoin() {
+      var coin = 'smw_coin.wav';
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', coin, true);
+      xhr.responseType = 'blob';
+      xhr.onload = function(e) {
+        if (this.status == 200) {
+          var blob = new Blob([this.response], {
+            type: 'audio/wav'
+          });
+          var reader = new window.FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = function() {
+            var coinB64 = reader.result;
+            var myStorage = localStorage.setItem("coin_base64", coinB64)
+          }
+        }
+      };
+      xhr.send();
+    }
+
+	function playCoinDropJS{
+		var coinB64 = localStorage.getItem("coin_base64");
+		var snd = new Audio(coinB64); 
+		snd.play();
+	}
+
+    function playCoinDrop() {
+      var soundDiv = document.createElement("div");
+      var coinB64 = localStorage.getItem("coin_base64");
+      soundDiv.innerHTML = '<audio autoplay="autoplay"><source src="' + coinB64 + '" type="audio/wav" />';
+    }
+  </script>
+</head>
+<body>
+  <button onclick="downloadCoin()">download sound file</button>
+  <button onclick="playCoinDrop()">play sound file (now)</button>
+  <button onclick="setTimeout(playCoinDrop, 3000)">play sound file (3 sec delay)</button>
+  <button onclick="playCoinDropJS()">play sound file (JS)</button>
+</body>
+</html>
