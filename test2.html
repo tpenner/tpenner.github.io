@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+<style>
+html,body {height: 100%; margin: 0px 0px 0px 0px;}
+#ruler {
+  visibility: hidden;
+  white-space: nowrap;
+  font-family: arial;
+  font-size: 10pt;
+}
+</style>
+<script>
+<!--
+// Javascript
+function main(){
+  // main startup script
+  var s = "P301 P310";
+  var len = console.log(s.visualLength());
+}
+
+String.prototype.visualLength = function()
+{
+    var ruler = $("ruler");
+    ruler.innerHTML = this;
+    return ruler.offsetWidth;
+}
+
+function $(id)
+{
+    return document.getElementById(id);
+}
+-->
+</script>
+</head>
+<body onload="main()">
+  <span id="ruler"></span>
+
+</body>
+</html>
